@@ -4,7 +4,7 @@
 
 Un Pong circulaire où les joueurs doivent marquer un maximum de points avant de sortir la balle afin de gagner. Des évènements arrivent après un certain nombre de rebond.
 
-[image](https://img4.hostingpics.net/pics/947425CircularPong.jpg)
+![image](https://img4.hostingpics.net/pics/947425CircularPong.jpg)
 
 ## REGLES
 
