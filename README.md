@@ -1,10 +1,10 @@
-#Circular Pong
+# Circular Pong
 
 **jeu web en competition**
 
 Un Pong circulaire où les joueurs doivent marquer un maximum de points avant de sortir la balle afin de gagner. Des évènements arrivent après un certain nombre de rebond.
 
-##REGLES
+## REGLES
 
 * Le joueur controle sa raquette avec les touches fléchées
 * Les joueurs ont une collision entre leurs raquettes
