@@ -13,6 +13,7 @@ function preload() {
 var sprite;
 var sprite2;
 var cursors;
+var vitesseraquette;
 
 function create() {
 
@@ -33,35 +34,41 @@ function create() {
     cursorD = game.input.keyboard.addKey(Phaser.Keyboard.D);
     cursorQ = game.input.keyboard.addKey(Phaser.Keyboard.Q);
     cursors = game.input.keyboard.createCursorKeys();
+    vitesseraquette = 2;
 }
 
 function update() {
-    var s1am2 = sprite.angle-2+180;
-    var s1ap2 = sprite.angle+2+180;
+    var s1am2 = sprite.angle-vitesseraquette+180;
+    var s1ap2 = sprite.angle+vitesseraquette+180;
     var s1amX = sprite.angle-13+180;
     var s1apX = sprite.angle+13+180;
-    var s2am2 = sprite2.angle-2+180;
-    var s2ap2 = sprite2.angle+2+180;
+    var s2am2 = sprite2.angle-vitesseraquette+180;
+    var s2ap2 = sprite2.angle+vitesseraquette+180;
     var s2amX = sprite2.angle-13+180;
     var s2apX = sprite2.angle+13+180;
+    var s1180 = sprite.angle+180;
+    var s2180 = sprite2.angle+180;
+
+    console.log(s1180+'_'+s2180);
 
     if (cursors.right.isDown)
     {
-        if (s1ap2 > s2amX && s1ap2 < s2apX) {
-        }else{sprite.angle += 2;}
+        if (s1ap2>s2amX&&s1ap2<s2apX||(s1180+vitesseraquette)-s2180>345) {
+        }
+        else{sprite.angle += vitesseraquette;}
     }
     else if (cursors.left.isDown)
-    { 
-        if (s1am2 > s2amX && s1am2 < s2apX) {
-        }else{sprite.angle -= 2;}
+    {
+        if ((s1am2 > s2amX && s1am2 < s2apX)||(360-s2180+s1180<16 && s2180 > 345)) {
+        }else{sprite.angle -= vitesseraquette;}
     }
-    if (cursorQ.isDown) {
-        if (s2ap2 > s1amX && s2ap2 < s1apX) {
-        }else{sprite2.angle += 2;}
+    if (cursorD.isDown) {
+        if ((s2ap2 > s1amX && s2ap2 < s1apX)||(s2180+vitesseraquette)-s1180>345) {
+        }else{sprite2.angle += vitesseraquette;}
     }
-    else if (cursorD.isDown) {
-        if (s2am2 > s1amX && s2am2 < s1apX) {
-        }else{sprite2.angle -= 2;}
+    else if (cursorQ.isDown) {
+        if ((s2am2 > s1amX && s2am2 < s1apX)||(360-s1180+s2180<16 && s1180 > 345)) {
+        }else{sprite2.angle -= vitesseraquette;}
     }
 
 
