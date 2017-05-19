@@ -70,6 +70,11 @@ playState.prototype ={
         coballe.x += coballe.xdir;
         coballe.y += coballe.ydir;
 
+         if (checkOverlap(balle, sprite))
+           {
+                console.log('Bulu');
+           }
+
         if (Math.sqrt(Math.pow((coballe.x-400),2)+Math.pow((coballe.y - 300),2)) < 250) {
         balle.clear();
         balle.beginFill(0x555555, 1);
@@ -97,5 +102,13 @@ playState.prototype ={
             }else{sprite2.angle -= vitesseraquette;}
         }
     }
+    
 
-}
+};function checkOverlap(spriteA, spriteB) {
+    
+        var boundsA = spriteA.getBounds();
+        var boundsB = spriteB.getBounds();
+    
+        return Phaser.Rectangle.intersects(boundsA, boundsB);
+    
+    }
