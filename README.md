@@ -8,17 +8,18 @@ Un Pong circulaire où les joueurs doivent marquer un maximum de points avant de
 
 ## REGLES
 
-* Le joueur controle sa raquette avec les touches fléchées
+* Les joueurs controlent leur raquette avec le clavier
 * Les joueurs ont une collision entre leurs raquettes
 * La balle part après un décompte dans une direction aléatoire
 * La balle rebondit sur les raquettes en fonction
-* Sortir la balle du cercle fait gagner 10 points
-* Si un joueur possède +20 point de son adversaire, sa raquette rétrécit
+* Sortir la balle du cercle fait gagner 1 point
+* Si un joueur possède 10 points de plus que son adversaire, sa raquette rétrécit
+* La raquette rétrécie d'un joueur redevient normale si l'adversaire remonte à 5 points de différence.
 * La balle augmente de vitesse à chaque rebond
-* La balle prends la couleur du dernier joueur qui l'a toucher
-* La balle fait gagner +1 point à chaque rebond
-* La balle fait gagner +2 point au rebond pendant qu'elle est dorée
-* La balle devient dorée après X nombres de rebond et redevient normale après X rebond dorée
+* La balle prends la couleur du dernier joueur qui l'a touché
+* La balle devient dorée après X nombres de rebond et redevient normale après X rebond 
+* Sortir une balle dorée fait gagner 5 points
+* Le match se termine si un joueur atteint les 20 points avec 2 points de différence
 
 ## Technologies
 
