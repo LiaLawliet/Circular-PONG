@@ -11,7 +11,7 @@ Un Pong circulaire où les joueurs doivent marquer un maximum de points avant de
 * Les joueurs controlent leur raquette avec le clavier
 * Les joueurs ont une collision entre leurs raquettes
 * La balle part après un décompte dans une direction aléatoire
-* La balle rebondit sur les raquettes en fonction
+* La balle rebondit sur les raquettes
 * Sortir la balle du cercle fait gagner 1 point
 * Si un joueur possède 10 points de plus que son adversaire, sa raquette rétrécit
 * La raquette rétrécie d'un joueur redevient normale si l'adversaire remonte à 5 points de différence.
