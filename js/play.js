@@ -86,7 +86,7 @@ playState.prototype ={
         if ((ballepos<202&&ballepos>198)&&(balleang > s2amX && balleang < s2apX)) {
             coballe.xdir = coballe.xdir*-1;
             coballe.ydir = coballe.ydir*-1;
-            ballecouleur = 0x000050;
+            ballecouleur = 0x000500;
         }
 
 
