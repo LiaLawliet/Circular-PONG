@@ -19,7 +19,7 @@ Un Pong circulaire où les joueurs doivent marquer un maximum de points avant de
 * La balle prends la couleur du dernier joueur qui l'a touché
 * La balle devient dorée après X nombres de rebond et redevient normale après X rebond 
 * Sortir une balle dorée fait gagner 5 points
-* Le match se termine si un joueur atteint les 20 points avec 2 points de différence
+* Le match se termine si un joueur atteint les 20 points
 
 ## Technologies
 
