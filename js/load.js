@@ -6,6 +6,7 @@ var loadState = {
     game.load.image('titlepong', 'img/titlepong.png');
     game.load.image('titlecircular', 'img/titlecircular.png');
     game.load.image('pressspace', 'img/pressspace.png');
+    game.load.script('Automania', 'font/automania.TTF');
 
     },
     create: function(){

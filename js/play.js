@@ -45,6 +45,11 @@ playState.prototype ={
     create: function () {
         game.stage.backgroundColor = '#000000';
         
+        scorej1 = game.add.text(50, 20, "Score "+score.j1, {font: "30px Automania", fill: "#D80101", align: "left", boundsAlignH: "left", 
+        boundsAlignV: "top"});
+        scorej2 = game.add.text(600, 20, "Score "+score.j2, {font: "30px Automania", fill: "#01e4d0", align: "right", boundsAlignH: "right", 
+        boundsAlignV: "top"});
+
         graphics = game.add.graphics(0, 0);
         graphics.lineStyle(1, 0x555555, 0.5);
         graphics.drawCircle(400, 300, 405);
@@ -124,6 +129,8 @@ playState.prototype ={
                 if (ballecouleur == orcouleur) score.j2 +=5;
                 else score.j2 ++;
             }
+            scorej1.text = "Score "+score.j1;
+            scorej2.text = "Score "+score.j2;
             dernieretouche = '';
             rebond = 0;
             or = false;
@@ -163,11 +170,11 @@ playState.prototype ={
 };
 
 function BalleOr(joueur){
-    if (or == true && rebond == 3) {
+    if (or == true && rebond == 9) {
         rebond = 0;
         or = false;
         ballecouleur = joueur;
-    }else if (rebond >= 5 || or == true) {
+    }else if (rebond >= 15 || or == true) {
         ballecouleur = orcouleur;
         or = true;
         rebond--;
