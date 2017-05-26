@@ -7,6 +7,11 @@ var loadState = {
     game.load.image('titlecircular', 'img/titlecircular.png');
     game.load.image('pressspace', 'img/pressspace.png');
     game.load.image('regle', 'img/regles.png');
+    game.load.image('bluewinner', 'img/bluewinner.png');
+    game.load.image('redwinner', 'img/redwinner.png');
+    game.load.image('blueloser', 'img/blueloser.png');
+    game.load.image('redloser', 'img/redloser.png');
+    game.load.image('spacetoreplay', 'img/spacetoreplay.png');
     game.load.script('Automania', 'font/automania.TTF');
 
     },

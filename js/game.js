@@ -4,4 +4,6 @@ game.state.add('load', loadState);
 game.state.add('menu', menuState);
 game.state.add('regles', reglesState);
 game.state.add('play', playState);
+game.state.add('redwin', redwinState);
+game.state.add('bluewin', bluewinState);
 game.state.start('boot');
