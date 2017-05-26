@@ -7,7 +7,7 @@ var loadState = {
     game.load.image('titlecircular', 'img/titlecircular.png');
     game.load.image('pressspace', 'img/pressspace.png');
     game.load.script('Automania', 'font/automania.TTF');
-
+    game.load.audio('Touch', 'sound/touch.wav')
     },
     create: function(){
         game.state.start('menu');

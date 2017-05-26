@@ -19,14 +19,18 @@ var playState = function (){
     balle = null;
     ballepos = null;
     balleang = null;
+    touch = null;
     ballecouleur = 0x555555;
     dernieretouche = '';
-    tailleraquette = 54;
     j1couleur = 0xD80101;
     j2couleur = 0x01e4d0;
     orcouleur = 0xD0A000;
     rebond = 0;
     or = false;
+    hitboxnormale = 54;
+    hitboxmodifie = 40;
+    hitboxj1 = 54;
+    hitboxj2 = 54;
     score = {
         j1 : 0,
         j2 : 0
@@ -45,10 +49,16 @@ playState.prototype ={
     create: function () {
         game.stage.backgroundColor = '#000000';
         
-        scorej1 = game.add.text(50, 20, "Score "+score.j1, {font: "30px Automania", fill: "#D80101", align: "left", boundsAlignH: "left", 
+        touch = game.add.audio('Touch');
+
+        score1 = game.add.text(100, 20, "Score", {font: "30px Automania", fill: "#D80101", align: "left", boundsAlignH: "left", 
         boundsAlignV: "top"});
-        scorej2 = game.add.text(600, 20, "Score "+score.j2, {font: "30px Automania", fill: "#01e4d0", align: "right", boundsAlignH: "right", 
+        score2 = game.add.text(600, 20, "Score", {font: "30px Automania", fill: "#01e4d0", align: "right", boundsAlignH: "right", 
         boundsAlignV: "top"});
+        scorej1 = game.add.text(140, 55, score.j1, {font: "50px Automania", fill: "#D80101", align: "center", boundsAlignH: "center", 
+        boundsAlignV: "middle"});
+        scorej2 = game.add.text(640, 55, score.j2, {font: "50px Automania", fill: "#01e4d0", align: "center", boundsAlignH: "center", 
+        boundsAlignV: "middle"});
 
         graphics = game.add.graphics(0, 0);
         graphics.lineStyle(1, 0x555555, 0.5);
@@ -78,24 +88,23 @@ playState.prototype ={
         // Changement des variables
         s1am2 = sprite.angle-vitesseraquette+180;
         s1ap2 = sprite.angle+vitesseraquette+180;
-        s1amX = sprite.angle-tailleraquette+180;
-        s1apX = sprite.angle+tailleraquette+180;
+        s1amX = sprite.angle-hitboxj1+180;
+        s1apX = sprite.angle+hitboxj1+180;
         s2am2 = sprite2.angle-vitesseraquette+180;
         s2ap2 = sprite2.angle+vitesseraquette+180;
-        s2amX = sprite2.angle-tailleraquette+180;
-        s2apX = sprite2.angle+tailleraquette+180;
+        s2amX = sprite2.angle-hitboxj2+180;
+        s2apX = sprite2.angle+hitboxj2+180;
         s1180 = sprite.angle+180;
         s2180 = sprite2.angle+180;
         ballepos = Math.sqrt(Math.pow((coballe.x-400),2)+Math.pow((coballe.y - 300),2));
         balleang = (Math.atan2(coballe.x-400,coballe.y-300)*180)/Math.PI*-1+90;
         if (balleang<0) {balleang+=360;}
  
-
         // Touche de raquette
         if ((ballepos<202&&ballepos>198)&&(balleang > s1amX+25 && balleang < s1apX-25)) {
+            touch.play();
             dernieretouche = 'j1';
             BalleOr(j1couleur);
-            console.log(balleang)
             if (balleang<sprite.angle+180) {
                 Redirection('droite');
             }else if (balleang>sprite.angle+180) {
@@ -104,6 +113,7 @@ playState.prototype ={
         }
 
         if ((ballepos<202&&ballepos>198)&&(balleang > s2amX+25 && balleang < s2apX-25)) {
+            touch.play();
             dernieretouche = 'j2';
             BalleOr(j2couleur);
             if (balleang<sprite2.angle+180) {
@@ -129,8 +139,8 @@ playState.prototype ={
                 if (ballecouleur == orcouleur) score.j2 +=5;
                 else score.j2 ++;
             }
-            scorej1.text = "Score "+score.j1;
-            scorej2.text = "Score "+score.j2;
+            scorej1.text = score.j1;
+            scorej2.text = score.j2;
             dernieretouche = '';
             rebond = 0;
             or = false;
@@ -139,29 +149,42 @@ playState.prototype ={
             coballe.xdir = Math.random()*6-3;
             coballe.ydir = Math.random()*6-3;
             ballecouleur = 0x555555;
+            if (score.j1>=score.j2+10) {
+                Retrecissement(sprite);
+                hitboxj1 = hitboxmodifie;
+            }else if (score.j2>=score.j1+10) {
+                Retrecissement(sprite2);
+                hitboxj2 = hitboxmodifie;
+            }else if(score.j1<=score.j2+5){
+                Agrandissement(sprite);
+                hitboxj1 = hitboxnormale;
+            }else if(score.j2<=score.j1+5){
+                Agrandissement(sprite2);
+                hitboxj2 = hitboxnormale;
+            }
         }
 
         // Mouvement des raquettes
             // J1
         if (cursors.right.isDown)
         {
-            if (s1ap2>s2amX&&s1ap2<s2apX||(s1180+vitesseraquette)-s2180>310) {
+            if (s1ap2>s2amX&&s1ap2<s2apX||(s1180+vitesseraquette)-s2180>360-hitboxj2) {
             }
             else{sprite.angle += vitesseraquette;}
 
         }
         else if (cursors.left.isDown)
         {
-            if ((s1am2 > s2amX && s1am2 < s2apX)||(360-s2180+s1180<55 && s2180 > 310)) {
+            if ((s1am2 > s2amX && s1am2 < s2apX)||(360-s2180+s1180<hitboxj2 && s2180 > 360-hitboxj2)) {
             }else{sprite.angle -= vitesseraquette;}
         }
             // J2
         if (cursorD.isDown) {
-            if ((s2ap2 > s1amX && s2ap2 < s1apX)||(s2180+vitesseraquette)-s1180>310) {
+            if ((s2ap2 > s1amX && s2ap2 < s1apX)||(s2180+vitesseraquette)-s1180>360-hitboxj1) {
             }else{sprite2.angle += vitesseraquette;}
         }
         else if (cursorQ.isDown) {
-            if ((s2am2 > s1amX && s2am2 < s1apX)||(360-s1180+s2180<55 && s1180 > 310)) {
+            if ((s2am2 > s1amX && s2am2 < s1apX)||(360-s1180+s2180<hitboxj1 && s1180 > 360-hitboxj1)) {
             }else{sprite2.angle -= vitesseraquette;}
         }
     }
@@ -232,4 +255,15 @@ function Redirection(direction){
         }
         if (coballe.ydir>-0.5) {coballe.ydir = -1}
     }
+}
+
+function Retrecissement(retrecit){
+    retrecit.height = 100;
+    retrecit.width = 15;
+    retrecit.pivot.x = 675;
+}
+function Agrandissement(agrandit){
+    agrandit.height = 222;
+    agrandit.width = 50;
+    agrandit.pivot.x = 200;
 }
