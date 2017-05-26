@@ -139,6 +139,7 @@ playState.prototype ={
                 if (ballecouleur == orcouleur) score.j2 +=5;
                 else score.j2 ++;
             }
+
             scorej1.text = score.j1;
             scorej2.text = score.j2;
             dernieretouche = '';
