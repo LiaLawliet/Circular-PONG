@@ -12,7 +12,11 @@ var loadState = {
     game.load.image('blueloser', 'img/blueloser.png');
     game.load.image('redloser', 'img/redloser.png');
     game.load.image('spacetoreplay', 'img/spacetoreplay.png');
+    game.load.image('image1', 'img/image1.png');
+    game.load.image('image2', 'img/image2.png');
+    game.load.image('image3', 'img/image3.png');
     game.load.script('Automania', 'font/automania.TTF');
+    game.load.audio('Touch', 'sound/touch.wav')
 
     },
     create: function(){

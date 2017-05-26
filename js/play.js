@@ -2,6 +2,10 @@ var playState = function (){
 
     launchball = false;
     timer = null;
+    timer3 = null;
+    image3 = null;
+    image2 = null;
+    image1 = null;
     sprite = null;
     sprite2 = null;
     cursors = null;
@@ -85,11 +89,23 @@ playState.prototype ={
         cursors = game.input.keyboard.createCursorKeys();
         vitesseraquette = 2;
 
+        image3 = game.add.sprite(game.world.centerX, game.world.centerY, 'image3');
+        image3.anchor.setTo(0.5);
+
+        timer3 = game.time.events.add(Phaser.Timer.SECOND * 1, function(){
+            image3.loadTexture('image2', 0, false);
+            game.time.events.add(Phaser.Timer.SECOND * 1, function(){
+                image3.loadTexture('image1', 0, false);
+                game.time.events.add(Phaser.Timer.SECOND * 1, function(){
+                    image3.destroy();
+                }, this);
+            }, this);
+        }, this);
+
         timer = game.time.events.add(Phaser.Timer.SECOND * 3, function(){
             launchball = true;
         }, this);
 
-        console.log(timer);
     },
 
     update:function () {
@@ -141,6 +157,22 @@ playState.prototype ={
             balle.drawCircle(coballe.x, coballe.y, 15);
 
         }else{
+
+            image3 = game.add.sprite(game.world.centerX, game.world.centerY, 'image3');
+            image3.anchor.setTo(0.5);
+            
+            timer3 = game.time.events.add(Phaser.Timer.SECOND * 1, function(){
+                timer3bool = true;
+                image3.loadTexture('image2', 0, false);
+                game.time.events.add(Phaser.Timer.SECOND * 1, function(){
+                    timer2bool = true;
+                    image3.loadTexture('image1', 0, false);
+                    game.time.events.add(Phaser.Timer.SECOND * 1, function(){
+                        timer3bool = true;
+                        image3.destroy();
+                    }, this);
+                }, this);
+            }, this);
 
             launchball = false;
             game.time.events.add(Phaser.Timer.SECOND * 3, function(){
