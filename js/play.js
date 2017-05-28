@@ -1,5 +1,11 @@
 var playState = function (){
 
+    launchball = false;
+    timer = null;
+    timer3 = null;
+    image3 = null;
+    image2 = null;
+    image1 = null;
     sprite = null;
     sprite2 = null;
     cursors = null;
@@ -15,7 +21,6 @@ var playState = function (){
     s2apX = null;
     s1180 = null;
     s2180 = null;
-    cercle = null;
     balle = null;
     ballepos = null;
     balleang = null;
@@ -34,14 +39,13 @@ var playState = function (){
     score = {
         j1 : 0,
         j2 : 0
-    }
+    };
     coballe = {
         x : 400,
         y : 300,
         xdir : 1.5,
         ydir : -4
-    }
-
+    };
 }
 
 playState.prototype ={
@@ -82,6 +86,23 @@ playState.prototype ={
         cursorQ = game.input.keyboard.addKey(Phaser.Keyboard.Q);
         cursors = game.input.keyboard.createCursorKeys();
         vitesseraquette = 2;
+
+        image3 = game.add.sprite(game.world.centerX, game.world.centerY, 'image3');
+        image3.anchor.setTo(0.5);
+
+        timer3 = game.time.events.add(Phaser.Timer.SECOND * 1, function(){
+            image3.loadTexture('image2', 0, false);
+            game.time.events.add(Phaser.Timer.SECOND * 1, function(){
+                image3.loadTexture('image1', 0, false);
+                game.time.events.add(Phaser.Timer.SECOND * 1, function(){
+                    image3.destroy();
+                }, this);
+            }, this);
+        }, this);
+
+        timer = game.time.events.add(Phaser.Timer.SECOND * 3, function(){
+            launchball = true;
+        }, this);
     },
 
     update:function () {
@@ -125,43 +146,68 @@ playState.prototype ={
 
 
         // Mouvement de la balle
-        if (ballepos < 250) {
-            coballe.x += coballe.xdir;
-            coballe.y += coballe.ydir;
-            balle.clear();
-            balle.beginFill(ballecouleur, 1);
-            balle.drawCircle(coballe.x, coballe.y, 15);
-        }else{
-            if (dernieretouche == 'j1') {
-                if (ballecouleur == orcouleur) score.j1 +=5;
-                else score.j1 ++;
-            }else if (dernieretouche == 'j2') {
-                if (ballecouleur == orcouleur) score.j2 +=5;
-                else score.j2 ++;
-            }
 
-            scorej1.text = score.j1;
-            scorej2.text = score.j2;
-            dernieretouche = '';
-            rebond = 0;
-            or = false;
-            coballe.x = 400;
-            coballe.y = 300;
-            coballe.xdir = Math.random()*6-3;
-            coballe.ydir = Math.random()*6-3;
-            ballecouleur = 0x555555;
-            if (score.j1>=score.j2+10) {
-                Retrecissement(sprite);
-                hitboxj1 = hitboxmodifie;
-            }else if (score.j2>=score.j1+10) {
-                Retrecissement(sprite2);
-                hitboxj2 = hitboxmodifie;
-            }else if(score.j1<=score.j2+5){
-                Agrandissement(sprite);
-                hitboxj1 = hitboxnormale;
-            }else if(score.j2<=score.j1+5){
-                Agrandissement(sprite2);
-                hitboxj2 = hitboxnormale;
+        if (launchball == true) {
+            if (ballepos < 250) {
+                coballe.x += coballe.xdir;
+                coballe.y += coballe.ydir;
+                balle.clear();
+                balle.beginFill(ballecouleur, 1);
+                balle.drawCircle(coballe.x, coballe.y, 15);
+            }else{
+                image3 = game.add.sprite(game.world.centerX, game.world.centerY, 'image3');
+                image3.anchor.setTo(0.5);
+                
+                timer3 = game.time.events.add(Phaser.Timer.SECOND * 1, function(){
+                    timer3bool = true;
+                    image3.loadTexture('image2', 0, false);
+                    game.time.events.add(Phaser.Timer.SECOND * 1, function(){
+                        timer2bool = true;
+                        image3.loadTexture('image1', 0, false);
+                        game.time.events.add(Phaser.Timer.SECOND * 1, function(){
+                            timer3bool = true;
+                            image3.destroy();
+                        }, this);
+                    }, this);
+                }, this);
+    
+                launchball = false;
+                game.time.events.add(Phaser.Timer.SECOND * 3, function(){
+                 launchball = true;
+                 }, this);
+                if (dernieretouche == 'j1') {
+                    if (ballecouleur == orcouleur) score.j1 +=5;
+                    else score.j1 ++;
+                }else if (dernieretouche == 'j2') {
+                    if (ballecouleur == orcouleur) score.j2 +=5;
+                    else score.j2 ++;
+                }
+                scorej1.text = score.j1;
+                scorej2.text = score.j2;
+                dernieretouche = '';
+                rebond = 0;
+                or = false;
+                coballe.x = 400;
+                coballe.y = 300;
+                coballe.xdir = Math.random()*6-3;
+                coballe.ydir = Math.random()*6-3;
+                ballecouleur = 0x555555;
+                balle.clear();
+                balle.beginFill(ballecouleur, 1);
+                balle.drawCircle(coballe.x, coballe.y, 15);
+                if (score.j1>=score.j2+10) {
+                    Retrecissement(sprite);
+                    hitboxj1 = hitboxmodifie;
+                }else if (score.j2>=score.j1+10) {
+                    Retrecissement(sprite2);
+                    hitboxj2 = hitboxmodifie;
+                }else if(score.j1<=score.j2+5){
+                    Agrandissement(sprite);
+                    hitboxj1 = hitboxnormale;
+                }else if(score.j2<=score.j1+5){
+                    Agrandissement(sprite2);
+                    hitboxj2 = hitboxnormale;
+                }
             }
         }
 
@@ -187,6 +233,16 @@ playState.prototype ={
         else if (cursorQ.isDown) {
             if ((s2am2 > s1amX && s2am2 < s1apX)||(360-s1180+s2180<hitboxj1 && s1180 > 360-hitboxj1)) {
             }else{sprite2.angle -= vitesseraquette;}
+        }
+
+        if (score.j1 >= score.j2+2 && score.j1 >= 20) {
+            game.state.start('redwin');
+            score.j1 = 0;
+            score.j2 = 0;
+        }else if (score.j2 >= score.j1+2 && score.j2 >= 20) {
+            game.state.start('bluewin');
+            score.j1 = 0;
+            score.j2 = 0;
         }
     }
     

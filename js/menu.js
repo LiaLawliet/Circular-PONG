@@ -43,7 +43,7 @@ menuState.prototype ={
 
 
         if (cursorSPACE.isDown) {
-            game.state.start('play');
+            game.state.start('regles');
         }
     }
 
