@@ -8,7 +8,7 @@ Un Pong circulaire où les joueurs doivent marquer un maximum de points avant de
 
 ## REGLES
 
-* Les joueurs controlent leur raquette avec le clavier (Q/D et les fleches directionnelles)
+* Les joueurs contrôlent leur raquette avec le clavier (Q/D et les fleches directionnelles)
 * Les joueurs ont une collision entre leurs raquettes
 * La balle part après un décompte dans une direction aléatoire
 * La balle rebondit sur les raquettes
