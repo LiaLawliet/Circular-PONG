@@ -245,8 +245,6 @@ playState.prototype ={
             score.j2 = 0;
         }
     }
-    
-
 };
 
 function BalleOr(joueur){

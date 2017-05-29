@@ -1,6 +1,5 @@
 var loadState = {
     preload: function(){
-
     game.load.image('j1', 'img/j1.png');
     game.load.image('j2', 'img/j2.png');
     game.load.image('titlepong', 'img/titlepong.png');
